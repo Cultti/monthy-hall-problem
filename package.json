@@ -1,0 +1,11 @@
+{
+  "name": "monthy-hall-problem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Timo Salola <timo@salola.fi>",
+  "license": "GPLv3"
+}
