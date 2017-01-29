@@ -1,11 +1,19 @@
 {
   "name": "monthy-hall-problem",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "The Monthy Hall Problem is a problem named after american tv show \"Let's Make a Deal\" host. You can read it more at [Wikipedia](https://en.wikipedia.org/wiki/Monty_Hall_problem)",
   "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cultti/monthy-hall-problem.git"
+  },
   "author": "Timo Salola <timo@salola.fi>",
-  "license": "GPLv3"
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Cultti/monthy-hall-problem/issues"
+  },
+  "homepage": "https://github.com/Cultti/monthy-hall-problem#readme"
 }
