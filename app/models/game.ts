@@ -15,6 +15,10 @@ export class Game {
     public switched: boolean
     public result: boolean
 
+    public static new(): Game {
+        return new this();
+    }
+
     constructor() {
         this.id = this.generateId();
         this.answer = this.getRandom(0, 2);
