@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/Cultti/monthy-hall-problem#readme",
   "dependencies": {
-    "mongoose": "^4.8.1"
+    "mongoose": "^4.8.1",
+    "redis": "^2.7.1"
   },
   "devDependencies": {
     "@types/mongoose": "^4.7.3",
-    "@types/node": "^8.0.10"
+    "@types/node": "^8.0.10",
+    "@types/redis": "^2.6.0"
   }
 }
