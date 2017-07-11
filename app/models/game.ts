@@ -1,3 +1,5 @@
+import {IGameResultModel, GameResultModel} from './gameResult';
+
 export enum doorStatus {
     closed,
     open,
@@ -100,7 +102,18 @@ export class Game {
                 this.doors[this.selected] = doorStatus.selectedOpen;
             }
 
-            resolve(this);            
+            return resolve(this);
+        });
+    }
+
+    public saveGameResult(): Promise<IGameResultModel> {
+        return new Promise<IGameResultModel>((resolve, reject) => {
+            let gameResult = new GameResultModel();
+            gameResult.answer = this.answer;
+            gameResult.result = this.result;
+            gameResult.save()
+                .then(resolve)
+                .catch(reject);
         });
     }
 

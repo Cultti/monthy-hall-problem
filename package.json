@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Cultti/monthy-hall-problem/issues"
   },
-  "homepage": "https://github.com/Cultti/monthy-hall-problem#readme"
+  "homepage": "https://github.com/Cultti/monthy-hall-problem#readme",
+  "dependencies": {
+    "@types/mongoose": "^4.7.3",
+    "mongoose": "^4.8.1"
+  }
 }
