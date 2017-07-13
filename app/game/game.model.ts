@@ -1,4 +1,6 @@
-import {IGameResultModel, GameResultModel} from './gameResult';
+import {IGameResultModel, GameResultModel} from '../models/gameResult';
+// import {redisClient} from '../helpers/redis';
+import {redisClient} from '../helpers/redis';
 
 export enum doorStatus {
     closed,
@@ -9,10 +11,17 @@ export enum doorStatus {
     selectedOpen
 }
 
-export class Game {
+export interface IGame {
+    doors: doorStatus[]
+    selected: number
+    result: boolean
+    switched: boolean
+}
+
+export class Game implements IGame{
     public id: string
     private answer: number
-    private doors: doorStatus[]
+    public doors: doorStatus[]
     public selected: number
     public switched: boolean
     public result: boolean
@@ -21,11 +30,15 @@ export class Game {
         return new this();
     }
 
-    constructor() {
+    constructor(init: boolean = true) {
+        if(!init)
+            return;
         this.id = this.generateId();
         this.answer = this.getRandom(0, 2);
         this.doors = [doorStatus.closed, doorStatus.closed, doorStatus.closed];
         this.switched = false;
+        this.selected = null;
+        this.result = null;
     }
 
     public toJson(): string {
@@ -34,6 +47,15 @@ export class Game {
             selected: this.selected,
             result: this.result
         });
+    }
+
+    public getGameState(): IGame {
+        return {
+            doors: this.doors,
+            selected: this.selected,
+            result: this.result,
+            switched: this.switched
+        };
     }
 
     public selectDoor(door: number): Promise<Game> {
@@ -103,6 +125,36 @@ export class Game {
             }
 
             return resolve(this);
+        });
+    }
+
+    public saveGameState(): Promise<Game> {
+        return new Promise<Game>((resolve, reject) => {
+            redisClient.set(this.id, JSON.stringify(this), (err) => {
+                if(err)
+                    return reject(err);
+                return resolve(this);
+            });
+        });
+    }
+
+    public static async restoreGameState(id: string): Promise<Game> {
+        return new Promise<Game>((resolve, reject) => {
+            redisClient.get(id, (err, result) => {
+                if(err || result === null)
+                    return reject("Could not find game");
+                let parsed: Game = JSON.parse(result);
+                let game = new Game(false);
+                
+                game.id = parsed.id;
+                game.answer = parsed.answer;
+                game.doors = parsed.doors;
+                game.switched = parsed.switched;
+                game.selected = parsed.selected;
+                game.result = parsed.result;
+
+                resolve(game);
+            });
         });
     }
 

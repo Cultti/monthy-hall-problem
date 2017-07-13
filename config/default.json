@@ -1,0 +1,6 @@
+{
+    "jwt": {
+        "private": "./priv/key.pem",
+        "public": "./priv/cert.pem"
+    }
+}
